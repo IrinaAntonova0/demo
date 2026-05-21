@@ -9,6 +9,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class HelloController {
 
+    static Integer id = 1;
     List<Message> messageList = new ArrayList<>();
 
     @GetMapping("/hello")
@@ -32,6 +33,7 @@ public class HelloController {
     @PostMapping("/messages")
     public Message postMessage(@RequestBody Message message)
     {
+        message.setId(String.valueOf(this.id++));
         this.messageList.add(message);
         return this.messageList.getLast();
     }
@@ -46,6 +48,33 @@ public class HelloController {
         else {
             return null;
         }
+    }
+
+    @PutMapping("/messages/update/{id}")
+    public Message updateMessage(@PathVariable String id,
+                                 @RequestBody Message message)
+    {
+        for(int i = 0; i<messageList.size(); i++) {
+            if(id.equals(message.getId()) && message.getId().equals(messageList.get(i).getId()) && message.getName().equals(messageList.get(i).getName())) {//Map wär besser ;)
+                String oldMsg = messageList.get(i).getMessage();
+                (messageList.get(i)).setMessage(oldMsg + " >> " + message.getMessage());
+                return messageList.get(i);
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("/messages/{id}")
+    public Message deleteMessage(@PathVariable String id,
+                                 @RequestParam(required = false) String unusedname)
+    {
+        for( Message m : messageList) {
+            if(id.equals(m.id)) {
+                messageList.remove(m);
+                return m;
+            }
+        }
+        return null;
     }
 }
 
