@@ -13,24 +13,13 @@ public class HelloController {
         return "Hi there.";
     }
 
-    @GetMapping("/{greeting}")//local:8080/api/hello/2?q=test
+    @GetMapping("/{greeting}")//localhost:8080/api/hello/liebe?name=iri
     public String sayHello2(@PathVariable String greeting,
                             @RequestParam(required = false) String name)
     {
         return greeting + " " + name;
     }
 
-/*    @GetMapping("/student")//local:8080/api/hello/2?q=test
-    public String getStudent()
-    {
-        return student;
-    }
 
-    @PostMapping("/student")
-    public String getStudent(@RequestBody Student student)
-    {
-        this.student = student;
-        return this.student;
-    }*/
 }
 
