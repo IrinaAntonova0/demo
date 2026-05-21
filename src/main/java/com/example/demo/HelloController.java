@@ -23,17 +23,29 @@ public class HelloController {
         return greeting + " " + name;
     }
 
-    @GetMapping("/messages/all")//local:8080/api/hello/2?q=test
-    public String getMessages()
+    @GetMapping("/messages")//local:8080/api/hello/2?q=test
+    public List<Message> getMessages()
     {
-        return this.messageList.toString();
+        return this.messageList;
     }
 
     @PostMapping("/messages")
-    public String postStudent(@RequestBody Message message)
+    public Message postMessage(@RequestBody Message message)
     {
         this.messageList.add(message);
-        return this.messageList.getLast().toString();
+        return this.messageList.getLast();
+    }
+
+    @DeleteMapping("/messages")
+    public Message deleteMessage(@RequestBody Message message)
+    {
+        if (messageList.contains(message)) {
+            messageList.remove(message);
+            return message;
+        }
+        else {
+            return null;
+        }
     }
 }
 
