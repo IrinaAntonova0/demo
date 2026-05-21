@@ -13,7 +13,7 @@ public class HelloController {
         return "Hi there.";
     }
 
-    @GetMapping("/{greeting}")//localhost:8080/api/hello/liebe?name=iri
+    @GetMapping("/{greeting}")//localhost:8080/api/hello/Liebe?name=iri
     public String sayHello2(@PathVariable String greeting,
                             @RequestParam(required = false) String name)
     {
